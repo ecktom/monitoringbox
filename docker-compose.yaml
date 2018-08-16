@@ -1,0 +1,49 @@
+version: "2"
+services:
+  portainer:
+    image: portainer/portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    ### Generate admin password
+    ### Run docker run --rm httpd:2.4-alpine htpasswd -nbB admin sFJVb7jF5xZfKbUm
+    ### (Escape $ with $$)
+    command: --admin-password '$$2y$$05$$ajJ/I01DT3mEzfNYsVWYquxWjZOihUZpd4AtH8daz2wpyUepFY8di'
+    volumes:
+    ### COMPOSE_CONVERT_WINDOWS_PATHS=1 (must be SET on Windows)
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
+  influxdb:
+    image: influxdb
+    restart: always
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb:/var/lib/influxdb
+    environment:
+      #### See https://hub.docker.com/_/influxdb/ (Section - Environment Variables)
+      INFLUXDB_DB: monitoring
+      INFLUXDB_HTTP_AUTH_ENABLED: "true"
+      INFLUXDB_ADMIN_USER: admin
+      INFLUXDB_ADMIN_PASSWORD: sFJVb7jF5xZfKbUm
+      INFLUXDB_USER: monitoring
+      INFLUXDB_USER_PASSWORD: sFJVb7jF5xZfKbUm
+  grafana:
+    image: grafana/grafana
+    restart: always
+    ports:
+     - "3000:3000"
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    environment:
+      #### See http://docs.grafana.org/installation/configuration/ (Section - Using environment variables)
+      #### If proxy needed to download plugins
+      # http_proxy: http://proxy:80
+      # https_proxy: http://proxy:80
+      # no_proxy: influxdb
+      GF_INSTALL_PLUGINS: "jdbranham-diagram-panel"
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: sFJVb7jF5xZfKbUm
+volumes:
+  portainer:
+  influxdb:
