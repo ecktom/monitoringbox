@@ -46,4 +46,5 @@ datasources:
     tlsClientCert: "..."
     tlsClientKey: "..."
   version: 1
-  # <bool> allow u
+  # <bool> allow users to edit datasources from the UI.
+  editable: true
