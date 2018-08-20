@@ -20,17 +20,17 @@ datasources:
   # <string> url
   url: http://influxdb:8086
   # <string> database password, if used
-  password: sFJVb7jF5xZfKbUm
+  password: %INFLUXDB_USER_PASSWORD%
   # <string> database user, if used
-  user: monitoring
+  user: %INFLUXDB_USER%
   # <string> database name, if used
-  database: monitoring
+  database: %INFLUXDB_DB%
   # <bool> enable/disable basic auth
-  basicAuth: true
+  basicAuth: %INFLUXDB_HTTP_AUTH_ENABLED%
   # <string> basic auth username
-  basicAuthUser: monitoring
+  basicAuthUser: %INFLUXDB_USER%
   # <string> basic auth password
-  basicAuthPassword: sFJVb7jF5xZfKbUm
+  basicAuthPassword: %INFLUXDB_USER_PASSWORD%
   # <bool> enable/disable with credentials headers
   withCredentials:
   # <bool> mark as default datasource. Max one per org
@@ -47,4 +47,4 @@ datasources:
     tlsClientKey: "..."
   version: 1
   # <bool> allow users to edit datasources from the UI.
-  editable: true
+  editable: false
