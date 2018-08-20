@@ -6,6 +6,8 @@ deleteDatasources:
   - name: InfluxDB
     orgId: 1
 
+#### THIS FILE IS BEING COPYED TO /etc/grafana/provisioning/datasources/datasource.yaml IN entrypoint.sh
+
 # list of datasources to insert/update depending
 # what's available in the database
 datasources:

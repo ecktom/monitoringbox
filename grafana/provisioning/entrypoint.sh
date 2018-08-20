@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp /etc/grafana/provisioning/datasource.yaml /etc/grafana/provisioning/datasources/datasource.yaml
+
 ## Check for Parameters
 if [ -z ${INFLUXDB_DB+x} ]; then echo "INFLUXDB_DB not set"; export INFLUXDB_DB=; fi
 if [ -z ${INFLUXDB_HTTP_AUTH_ENABLED+x} ]; then echo "INFLUXDB_HTTP_AUTH_ENABLED not set"; export INFLUXDB_HTTP_AUTH_ENABLED=false; fi
